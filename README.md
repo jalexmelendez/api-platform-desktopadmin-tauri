@@ -4,8 +4,6 @@ Use this application to manage your api platform instances.
 
 ## Getting Started
 
-You can either download the application [Here](link.com) for your OS or buid it as you wish without limitations.
-
 ### Coustomizing the application
 
 #### Recommendations before digging into the code
@@ -28,7 +26,8 @@ By default the application uses a [cloudbridge](https://tauri.studio/docs/archit
 user@root:~APP_PATH/$ yarn install
 
 ```
-4. Run the development server
+4. on App.tsx change "YOUR_URL" with your entry point.
+5. Run the development server
 ``` bash 
 user@root:~APP_PATH/$ yarn tauri dev
 ```

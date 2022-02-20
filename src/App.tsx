@@ -41,14 +41,13 @@ function addEntryPoint(entrypoint: string): boolean {
 }
 
 function App() {
-  let entrypoint: EntryPoint = hasEntryPoint();
-  if (!entrypoint.exists && entrypoint.value === null) {
-    entrypoint.value = ""
-  }
+  // CHANGE THE URL FOR YOUR API PLATFORM'S API ENTRYPOINT
+  let entrypoint: string = "YOUR_URL";
+  //
   return (
     <AdminGuesser
     // Use your custom data provider or resource schema analyzer
-    dataProvider={hydraDataProvider({ entrypoint: entrypoint.value })}
+    dataProvider={hydraDataProvider({ entrypoint: entrypoint })}
     schemaAnalyzer={hydraSchemaAnalyzer()}
     />
   )
