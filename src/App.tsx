@@ -1,26 +1,57 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
+import tauriCircles from './tauri.svg';
+import tauriWord from './wordmark.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  AdminGuesser,
+  hydraDataProvider,
+  hydraSchemaAnalyzer,
+} from '@api-platform/admin';
+
+type EntryPoint = {
+  exists: boolean,
+  value: string
 }
 
-export default App;
+function hasEntryPoint() : EntryPoint {
+  let entrypoint: string | null = localStorage.getItem('entrypoint');
+  if (entrypoint == null) {
+    return {
+      exists: false,
+      value: ""
+    };
+  }
+  return {
+    exists: true,
+    value: entrypoint
+  };
+}
+
+function removeEntryPoint(): boolean {
+  localStorage.removeItem('entrypoint');
+  return true;
+}
+
+function addEntryPoint(entrypoint: string): boolean {
+  localStorage.setItem('entrypoint', entrypoint);
+  return true;
+}
+
+function App() {
+  let entrypoint: EntryPoint = hasEntryPoint();
+  if (!entrypoint.exists && entrypoint.value === null) {
+    entrypoint.value = ""
+  }
+  return (
+    <AdminGuesser
+    // Use your custom data provider or resource schema analyzer
+    dataProvider={hydraDataProvider({ entrypoint: entrypoint.value })}
+    schemaAnalyzer={hydraSchemaAnalyzer()}
+    />
+  )
+}
+
+export default App
